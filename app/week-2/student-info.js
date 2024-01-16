@@ -2,12 +2,12 @@ import Link from "next/link";
 
 export default function Page() {
   return (
-   <main><h1>CPRG 306: Web Development 2 - Assignments</h1>
+   <main><h1>Cuiyi Ye</h1>
    
     <ul>
 
      <li>
-       <Link href="week-2">Week 2</Link>
+       <Link href="https://github.com/cuiyiye">My GitHub repository</Link>
       
      </li>
 
