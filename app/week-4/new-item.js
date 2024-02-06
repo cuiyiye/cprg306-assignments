@@ -3,7 +3,7 @@
 import { useState } from "react";
 
 export default function NewItem(){
-    const [name, setName] = useState("Item name");
+    const [name, setName] = useState("");
     const [quantity, setQuantity] = useState(1);
     const [category, setCategory] = useState("");
 
@@ -18,18 +18,18 @@ export default function NewItem(){
     };
 
     return (
-        <div className="flex items-center justify-center ">
-            <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        <div className="flex items-center justify-center max-w-s mx-auto p-4 ">
+            <form onSubmit={handleSubmit} className="flex flex-col">
                 <div>
                     <label htmlFor="name" className="block text-sm font-medium text-gray-700"></label>
-                    <input type="text" id="name" value={name} onChange={(e) => setName(e.target.value)} required className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+                    <input type="text" placeholder="Item name" value={name} onChange={(e) => setName(e.target.value)} required className="w-80 px-4 py-2 rounded bg-white border border-gray-300 shadow-sm focus:border-indigo-500" />
                 </div>
                 <div className="flex items-end">
                     <div className="flex-1">
                         <label htmlFor="quantity"></label>
                         <input type="number" id="quantity" min="1" max="99" value={quantity} onChange={(e) => setQuantity(e.target.value)} required className="mt-1 block w-short px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
                     </div>
-                    <div className="flex-1 mr-0">
+                    <div>
                         <label htmlFor="category"></label>
                         <select id="category" value={category} onChange={(e) => setCategory(e.target.value)} className="mt-1 block w-short px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" >
                             <option value="produce">Produce</option>
