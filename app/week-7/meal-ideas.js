@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import MealIdeas from './meal-ideas';
 
 async function fetchMealIdeas() {
   const response = await fetch("https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}");
