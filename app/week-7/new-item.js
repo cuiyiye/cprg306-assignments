@@ -51,4 +51,3 @@ export default function NewItem({onAddItem}){
         </div>
     );
 }
-
