@@ -17,7 +17,6 @@ export default function Page() {
     };
 
     const handleItemSelect = (item) => {
-        // Clean up the item name by removing any trailing numbers, commas, and emojis
         const cleanedName = item.name.replace(/,\s*\d+\s*kg.*|[\u2700-\u27BF]|[\uE000-\uF8FF]|�[�-�]|�[�-�]|[\u2011-\u26FF]|�[�-�]/g, '').trim();
         setSelectedItemName(cleanedName);
     };
