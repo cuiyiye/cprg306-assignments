@@ -17,8 +17,13 @@ export default function Page() {
     };
 
     const handleItemSelect = (item) => {
-        const cleanedName = item.name.replace(/,\s*\d+\s*kg.*|[\u2700-\u27BF]|[\uE000-\uF8FF]|�[�-�]|�[�-�]|[\u2011-\u26FF]|�[�-�]/g, '').trim();
+        const cleanedName = item.name.replace(/([\u2700-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD10-\uDDFF])/g, '').trim();
+        /*const regex= cleanedName.replace(/[^a-zA-Z\s]+$/g, '');*/
+        const noSpecialChars = cleanedName.replace(/[^a-zA-Z\s]/g, '').trim();
+        const units = ['kg', 'pack', 'g','dozen', 'L'];
+        const finalName = units.reduce((name, unit) => name.replace(new RegExp(`\\b${unit}\\b`, 'gi'), ''), noSpecialChars).trim();
         setSelectedItemName(cleanedName);
+        setSelectedItemName(finalName);
     };
   
     return(
@@ -30,7 +35,7 @@ export default function Page() {
                     <NewItem onAddItem={handleAddItem} />
                     <ItemList items={items} onItemSelect={handleItemSelect} />
                 </div>
-                <div className="flex-1 text-2xl font-bold text-white py-4">
+                <div className="flex-1 text-white py-4">
                     <MealIdeas ingredient={selectedItemName} />
                 </div>
             </div>
