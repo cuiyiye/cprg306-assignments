@@ -14,8 +14,9 @@ export default function Page() {
             <p>{user ? "Hi there!" : "Please sign in"}</p>
             <p>{user ?.email}</p>
             {user && user.displayName}
-            <button onClick={gitHubSignIn}>Sign in with GitHub</button>
-            <button onClick={firebaseSignOut}>Sign out</button>
+            <p>
+                {user ? (<button onClick={firebaseSignOut}>Sign out</button>) : (<button onClick={gitHubSignIn}>Sign in with GitHub</button>)}
+            </p>
         </div>
     );
 }
