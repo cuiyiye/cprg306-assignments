@@ -4,19 +4,33 @@ import ItemList from './item-list.js';
 import NewItem from './new-item.js';
 import { useState } from 'react';
 import MealIdeas from './meal-ideas.js';
-import { getItems, addItem } from './_services/shopping-list-service';
+import { getItems, addItem } from '../_services/shopping-list-service';
 import { useEffect } from 'react';  
+import { useUserAuth } from "../_utils/auth-context";
 
 
 export default function Page() {
 
-    const [items, setItems] = useState(ItemsData);
-    const [selectedItemName, setSelectedItemName] = useState('');
+    const [items, setItems] = useState([]);
+  const { user } = useUserAuth();
+  const [selectedItemName, setSelectedItemName] = useState('');
+  
+  useEffect(() => {
+    if (user) {
+      loadItems();
+    }
+  }, [user]);
 
-    const handleAddItem = async (newItem) => {
-        const newItemId = await addItem(user.uid, newItem); // Add item to Firestore
-  const newItem = { id: newItemId, ...newItem }; // Create a new item with returned ID
-  setItems((currentItems) => [...currentItems, newItem]); // Update state with the new item
+  const loadItems = async () => {
+    const userItems = await getItems(user.uid);
+    setItems(userItems);
+  };
+
+  
+
+  const handleAddItem = async (newItem) => {
+    const newItemId = await addItem(user.uid, newItem);
+    setItems(prevItems => [...prevItems, { ...newItem, id: newItemId }]);
 };
 
     const handleItemSelect = (item) => {
@@ -29,17 +43,6 @@ export default function Page() {
 
 
     };
-
-    const loadItems = async () => {
-        const itemsFromDb = await getItems(user.uid); // Replace with current user's UID
-        setItems(itemsFromDb); // Assuming you have a useState hook for items
-      };
-      
-      // useEffect to call loadItems on mount
-      useEffect(() => {
-        loadItems();
-        // Add any other dependencies if necessary
-      }, [user.uid]); // user.uid is a dependency for useEffect
       
       
     return(
